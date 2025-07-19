@@ -5,7 +5,7 @@
 <div align="center">
 <h3 align="center">News Dashboard</h3>
   <p align="center">
-    <a href="https://lingotech-dashboard.vercel.app/">View Demo</a>
+    <a href="https://news-dashboard-test.vercel.app/">View Demo</a>
   </p>
 </div>
 
@@ -18,7 +18,7 @@ NEWS_API_KEY = _____ // Obtain a news api key to pull recent news stories from
 NEXT_PUBLIC_BASE_URL = _____ // Base URL of deployment. Will change between live and deployment.
 ```
 
-First, run the development server:
+Then, run the development server:
 
 ```bash
 npm run dev
