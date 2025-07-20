@@ -1,0 +1,9 @@
+# ignore Python venv
+.venv/
+
+# ignore .env files
+.env
+
+# byte‑compiled python
+__pycache__/
+*.pyc
