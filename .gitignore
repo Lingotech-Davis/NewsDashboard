@@ -4,6 +4,8 @@
 # ignore .env files
 .env
 
+top_content.txt
+
 # byte‑compiled python
 __pycache__/
 *.pyc
