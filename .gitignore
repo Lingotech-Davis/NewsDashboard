@@ -9,3 +9,8 @@ top_content.txt
 # byte‑compiled python
 __pycache__/
 *.pyc
+
+# practice files
+tests/Bipartisan_News_Classifier.ipynb
+tests/bad_dataset/democrat1_labeled.csv
+tests/bad_dataset/republican1_labeled.csv
