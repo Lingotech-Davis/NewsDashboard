@@ -1,0 +1,33 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: containers/app.Dockerfile
+    ports:
+      - "8000:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./:/src:ro
+    environment:
+      DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME} # we use db instead of localhost here, because our database is called db in the compose file
+    command: uvicorn src.app.main:app --proxy-headers --host 0.0.0.0 --port 80
+  db:
+    image: pgvector/pgvector:pg17 # this is the postgres vector docker image we pull from
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    expose:
+      - "5432"
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    healthcheck: # I ran into an issue where the API would start before the DB, be unable to connect and crash. This is a workaround.
+      test:
+        ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+volumes:
+  postgres_data:
