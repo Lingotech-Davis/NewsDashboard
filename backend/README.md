@@ -55,6 +55,9 @@ Different docker files:
 - docker-compose.yml: Like a dockerfile for docker compose. Orchestrates the interaction and deployment of multiple docker files.
 
 Here's some [other small notes](https://dtyner-vault.vercel.app/Coding/Docker) I wrote.
+Here's a minimal example of another [similar project](https://github.com/Paul-Williamson-90/postgres_fastapi_template/tree/master)
+
+- It didn't work right off the bat for me, I had to configure the .env file and add the healthcheck code to make sure the api didn't start too early.
 
 ### Testing
 
