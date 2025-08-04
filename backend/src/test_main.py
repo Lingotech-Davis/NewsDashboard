@@ -48,3 +48,12 @@ def test_env_load_in_router():
     assert response_keys == set(expected_keys)
     response_values = set(response.json().values())
     assert None not in response_values
+
+
+def test_top_stories():
+    response = client.get("/api/v1/top-stories")
+    assert response.status_code == 200
+    data = response.json()
+    response_keys = set(data)
+    assert {"status", "totalResults", "articles"} == response_keys
+    assert data["totalResults"] > 0

@@ -7,8 +7,9 @@ newspaper3k
 """
 
 import requests
-from newspaper import Article
-from newspaper.article import ArticleException
+
+# from newspaper import Article
+# from newspaper.article import ArticleException
 
 
 def call_news_api(keyword, date, NEWS_API_KEY, everything=True):
@@ -24,4 +25,6 @@ def call_news_api(keyword, date, NEWS_API_KEY, everything=True):
         f"&apiKey={NEWS_API_KEY}"
     )
     response = requests.get(url)
-    return response
+    if not response.ok:
+        return False
+    return response.json()

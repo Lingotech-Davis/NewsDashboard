@@ -6,3 +6,5 @@ sqlalchemy
 asyncpg
 databases
 psycopg2
+requests
+
