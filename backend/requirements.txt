@@ -7,4 +7,5 @@ asyncpg
 databases
 psycopg2
 requests
-
+lxml_html_clean
+newspaper3k

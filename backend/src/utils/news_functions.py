@@ -6,13 +6,17 @@ lxml_html_clean
 newspaper3k
 """
 
-import requests
+import logging
 
-# from newspaper import Article
-# from newspaper.article import ArticleException
+import requests
+from newspaper import Article
+from newspaper.article import ArticleException
+
+logger = logging.getLogger(__name__)
 
 
 def call_news_api(keyword, date, NEWS_API_KEY, everything=True):
+    API_KEY = NEWS_API_KEY
 
     # choose endpoint
     endpoint = "everything" if everything else "top-headlines"
@@ -22,9 +26,31 @@ def call_news_api(keyword, date, NEWS_API_KEY, everything=True):
         f"?q={keyword}"
         f"&from={date}"
         "&sortBy=relevancy"
-        f"&apiKey={NEWS_API_KEY}"
+        f"&apiKey={API_KEY}"
     )
     response = requests.get(url)
-    if not response.ok:
-        return False
-    return response.json()
+    return response
+
+
+def extract_newspaper_contents(article_url):
+    """
+    given a url to some article, return its content
+    this is really just a helper function. also has safeguards for articles that block the scraping tool.
+    """
+    article = Article(article_url)
+    try:
+        article.download()
+        article.parse()
+
+        # cleaning it up
+        text = article.text
+        title = article.title
+        filtered_lines = filter(str.strip, text.splitlines())
+        cleaned_text = "\n".join(filtered_lines)
+        return {"title": title, "text": cleaned_text}
+
+    except ArticleException as e:
+        logger.debug(
+            f"Error on following url: rejected request or malformed url? - {article_url} - {e}"
+        )
+        return None
