@@ -1,0 +1,7 @@
+services:
+  # db: # Exposes the DB port for local testing
+  #   ports:
+  #     - "5432:5432"
+
+  api: # A specific command for the API testing instead of the uvicorn port
+    command: ["pytest", "src/test_main.py"]

@@ -49,29 +49,6 @@ class NewsApiResponse(BaseModel):
     articles: List[Article] = Field(..., description="A list of news articles.")
 
 
-class UrlPayload(BaseModel):
-    """Schema for the request body containing the URL to scrape."""
-
-    story_url: str = Field(..., description="The URL of the news article to extract.")
-
-    @field_validator("story_url")
-    def validate_url(cls, v):
-        """Validates the URL using a regex before the route function is called."""
-        rough_url_validator = re.compile(
-            r"^(?:http|ftp)s?://"  # http:// or https://
-            r"(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|"  # domain...
-            r"localhost|"  # localhost...
-            r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})"  # ...or ip
-            r"(?::\d+)?"  # optional port
-            r"(?:/?|[/?]\S+)$",
-            re.IGNORECASE,
-        )
-
-        if not re.match(rough_url_validator, v):
-            raise ValueError("Invalid URL format.")
-        return v
-
-
 class ArticleContentResponse(BaseModel):
     """Schema for a successful response with extracted article content."""
 

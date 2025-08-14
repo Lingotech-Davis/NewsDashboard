@@ -69,3 +69,15 @@ To run (assuming curdir=backend/) : `pytest src/test_main.py`
 Additionally, when running and rerunning code, you can shortcut things by using my restart.sh file.
 
 - To execute this (which tears down containers, then restarts them), give it exec perms `chmod +x ./restart.sh` then run it
+
+### Routes
+
+```
+{base_url}
+├── /ping - Test route that servers listening
+├── /env-check - Test route that env vars are configured
+└── /api
+    └── /v1
+        ├── /news-extract - Extracts news from a news url. ?story_url=str
+        └── /top-stories - Gets recent top news items. ?query=str
+```
