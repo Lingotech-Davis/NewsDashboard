@@ -1,0 +1,204 @@
+source,P(left|source),P(center|source),P(right|source)
+Washington Times,0.0,0.0,1.0
+CNN (Web News),1.0,0.0,0.0
+Politico,1.0,0.0,0.0
+Fox Online News,0.0,0.0,1.0
+NPR Online News,0.0,1.0,0.0
+USA TODAY,0.0,1.0,0.0
+Vox,1.0,0.0,0.0
+New York Times - News,1.0,0.0,0.0
+The Hill,0.0,1.0,0.0
+Fox News,0.0,0.0,1.0
+Christian Science Monitor,0.0,1.0,0.0
+Townhall,0.0,0.0,1.0
+National Review,0.0,0.0,1.0
+Guest Writer - Right,0.0,0.0,1.0
+Wall Street Journal - News,0.0,1.0,0.0
+Daily Beast,1.0,0.0,0.0
+The Flip Side,0.0,1.0,0.0
+TheBlaze.com,0.0,0.0,1.0
+New York Post,0.0,0.0,1.0
+Bloomberg,0.0,1.0,0.0
+Guest Writer - Left,1.0,0.0,0.0
+The Atlantic,1.0,0.0,0.0
+CBS News,1.0,0.0,0.0
+Slate,1.0,0.0,0.0
+Vanity Fair,1.0,0.0,0.0
+Al Jazeera,0.9929577464788732,0.007042253521126761,0.0
+Daily Kos,1.0,0.0,0.0
+CBN,0.0,0.0,1.0
+The Daily Wire,0.0,0.0,1.0
+The Week - News,0.0,1.0,0.0
+Mother Jones,1.0,0.0,0.0
+Washington Post,1.0,0.0,0.0
+Media Matters,1.0,0.0,0.0
+CNBC,0.0,1.0,0.0
+MarketWatch,0.0,0.0,1.0
+BBC News,0.0,1.0,0.0
+Reuters,0.0,1.0,0.0
+The Guardian,1.0,0.0,0.0
+Associated Press,0.0,1.0,0.0
+The Daily Caller,0.0,0.0,1.0
+Salon,1.0,0.0,0.0
+ABC News,1.0,0.0,0.0
+Breitbart News,0.0,0.0,1.0
+Reason,0.0,0.0,1.0
+Guest Writer,0.0,1.0,0.0
+Newsmax,0.0,0.0,1.0
+CNN - Editorial,1.0,0.0,0.0
+Fox News (Online),0.0,0.0,1.0
+FiveThirtyEight,0.0,1.0,0.0
+Chicago Sun-Times,1.0,0.0,0.0
+American Spectator,0.0,0.0,1.0
+Yahoo! The 360,0.0,1.0,0.0
+Axios,0.0,1.0,0.0
+Democracy Now,1.0,0.0,0.0
+Business Insider,0.0,1.0,0.0
+Time Magazine,1.0,0.0,0.0
+New York Times - Opinion,1.0,0.0,0.0
+ProPublica,0.47058823529411764,0.5294117647058824,0.0
+Vice,1.0,0.0,0.0
+BuzzFeed News,1.0,0.0,0.0
+HotAir,0.0,0.0,1.0
+Victor Hanson,0.0,0.0,1.0
+Fox News Opinion,0.0,0.0,1.0
+New York Magazine,1.0,0.0,0.0
+International Business Times,0.0,1.0,0.0
+Daily Mail,0.0,0.0,1.0
+Rich Lowry,0.0,0.0,1.0
+NewsBusters,0.0,0.0,1.0
+The Intercept,1.0,0.0,0.0
+RealClearPolitics,0.0,1.0,0.0
+Washington Free Beacon,0.0,0.0,1.0
+NBC News (Online),1.0,0.0,0.0
+Scientific American,0.05714285714285714,0.9428571428571428,0.0
+ThinkProgress,1.0,0.0,0.0
+The Nation,1.0,0.0,0.0
+The Epoch Times,0.0,0.0,1.0
+John Stossel,0.0,0.0,1.0
+The Economist,1.0,0.0,0.0
+The Marshall Project,0.0,1.0,0.0
+Pew Research Center,0.0,1.0,0.0
+Ben Shapiro,0.0,0.0,1.0
+The Boston Globe,1.0,0.0,0.0
+The Week - Opinion,1.0,0.0,0.0
+Jacobin,1.0,0.0,0.0
+Media Research Center,0.0,0.0,1.0
+New York Times (Online News),1.0,0.0,0.0
+The New Yorker,1.0,0.0,0.0
+John Fund,0.0,0.0,1.0
+Howard Kurtz,0.0,1.0,0.0
+George Will,0.0,0.0,1.0
+NBCNews.com,1.0,0.0,0.0
+Damon Linker,1.0,0.0,0.0
+Newt Gingrich,0.0,0.0,1.0
+Michelle Malkin,0.0,0.0,1.0
+Yahoo! News,1.0,0.0,0.0
+Ezra Klein,1.0,0.0,0.0
+Wall Street Journal - Editorial,0.0,0.0,1.0
+Julian Zelizer,1.0,0.0,0.0
+Juan Williams,1.0,0.0,0.0
+Newsmax - News,0.0,0.0,1.0
+Charles Krauthammer,0.0,0.0,1.0
+Michael Brendan Dougherty,0.0,0.0,1.0
+NPR Editorial ,1.0,0.0,0.0
+Jonah Goldberg,0.0,0.0,1.0
+Rand Paul,0.0,0.0,1.0
+Ann Coulter,0.0,0.0,1.0
+David Brooks,0.0,0.0,1.0
+Ryan Cooper,1.0,0.0,0.0
+Brent Bozell,0.0,0.0,1.0
+Michael Barone,0.0,0.0,1.0
+New York Post (News),0.0,0.0,1.0
+New York Post (Opinion),0.0,0.0,1.0
+Frank Bruni,1.0,0.0,0.0
+Allysia Finley (Wall Street Journal),0.0,0.0,1.0
+S.E. Cupp,0.0,0.0,1.0
+Michael Goodwin,0.0,0.0,1.0
+Elizabeth Warren,1.0,0.0,0.0
+Michelle Goldberg,0.0,1.0,0.0
+Bret Stephens,0.0,0.0,1.0
+Thomas Sowell,0.0,0.0,1.0
+Jon Terbush,1.0,0.0,0.0
+HuffPost,1.0,0.0,0.0
+Guest Writer - Center,0.0,1.0,0.0
+David Leonhardt,1.0,0.0,0.0
+Dana Milbank,0.0,1.0,0.0
+Andrew Napolitano,0.0,0.0,1.0
+Jeff Jacoby,0.0,0.0,1.0
+Scott Jennings,0.0,0.0,1.0
+AP Fact Check,1.0,0.0,0.0
+Ben Stein,0.0,0.0,1.0
+Tucker Carlson,0.0,0.0,1.0
+Newsmax - Opinion,0.0,0.0,1.0
+Dick Morris,0.0,0.0,1.0
+ABC News (Online),1.0,0.0,0.0
+"John Gable, AllSides Founder",0.0,0.0,1.0
+Mitt Romney,0.0,0.0,1.0
+Barack Obama,1.0,0.0,0.0
+Scott Walker,0.0,0.0,1.0
+Carol Costello,0.0,1.0,0.0
+Charles Blow,1.0,0.0,0.0
+Jesse Jackson,1.0,0.0,0.0
+The Intelligencer,0.0,1.0,0.0
+Gail Collins,0.0,1.0,0.0
+Newsmax (News),0.0,0.0,1.0
+Tom Cole,0.0,0.0,1.0
+The American Spectator,0.0,0.0,1.0
+Matt Welch,0.0,0.0,1.0
+AllSides,0.0,1.0,0.0
+Jeff Spross,1.0,0.0,0.0
+Dennis Prager,0.0,0.0,1.0
+Richard A. Lowry,0.0,0.0,1.0
+William Bennett,0.0,0.0,1.0
+Pat Buchanan,0.0,0.0,1.0
+Walt Handelsman (cartoonist),1.0,0.0,0.0
+Hillary Clinton,1.0,0.0,0.0
+Michael Kinsley,1.0,0.0,0.0
+John Boehner,0.0,0.0,1.0
+Arkadi Gerney,1.0,0.0,0.0
+Matt Towery,0.0,0.0,1.0
+Lisa Gable,0.0,0.0,1.0
+Mitch McConnell,0.0,0.0,1.0
+Annafi Wahed,1.0,0.0,0.0
+NBC (Web News),1.0,0.0,0.0
+Jim Obergefell,1.0,0.0,0.0
+Ralph Benko,0.0,0.0,1.0
+Rem Reider,0.0,1.0,0.0
+Joan Blades,1.0,0.0,0.0
+Piers Morgan,1.0,0.0,0.0
+Yellow Scene Magazine,0.0,1.0,0.0
+Al Cardenas,0.0,0.0,1.0
+Sally Pipes,0.0,0.0,1.0
+Tom Nichols,0.0,0.0,1.0
+Carrie Lukas,0.0,0.0,1.0
+American Enterprise Institute,0.0,0.0,1.0
+Joe Scarborough,0.0,0.0,1.0
+Rahm Emanuel,1.0,0.0,0.0
+James Bovard,0.0,0.0,1.0
+Aaron Carroll,0.0,1.0,0.0
+Polish Times,0.0,1.0,0.0
+Paul Ryan,0.0,0.0,1.0
+Amy Klobuchar,1.0,0.0,0.0
+Neil J. Young,1.0,0.0,0.0
+Kathleen Parker,0.0,0.0,1.0
+Conor Friedersdorf,0.0,1.0,0.0
+Fox News Latino,0.0,0.0,1.0
+Eli Parser,1.0,0.0,0.0
+Washington Examiner,0.0,0.0,1.0
+Jonathan Haidt,0.0,1.0,0.0
+Rev. Jesse Jackson Sr.,1.0,0.0,0.0
+Ted Rall (cartoonist),1.0,0.0,0.0
+Marc A. Thiessen,0.0,0.0,1.0
+Ken Burns,0.0,1.0,0.0
+Jonathan Miller,1.0,0.0,0.0
+Noah Rothman,0.0,0.0,1.0
+Christopher Buskirk,0.0,0.0,1.0
+Nicholas Kristof,1.0,0.0,0.0
+International Institute for Strategic Studies,0.0,1.0,0.0
+Ross Douthat,0.0,0.0,1.0
+Peter Thiel,0.0,0.0,1.0
+Jonathan Chait,1.0,0.0,0.0
+Kalamazoo Gazette,0.0,1.0,0.0
+Andrew Sullivan,0.0,0.0,1.0
+New York Times Editorial Board,1.0,0.0,0.0
