@@ -18,8 +18,8 @@ News Classification
   - [Test Notebook](https://github.com/Lingotech-Davis/NewsDashboard/blob/main/tests/FakeNews_Classifier.ipynb)
 - Biparisanship detection
   - [Test Notebook](https://github.com/Lingotech-Davis/NewsDashboard/blob/main/tests/BiasDetection_Classifier.ipynb)
-News Summarization
 
+News Summarization
 - [Test Notebook](https://github.com/Lingotech-Davis/NewsDashboard/blob/main/tests/request.ipynb)
 
 ##### Hard
