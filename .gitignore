@@ -12,3 +12,4 @@ __pycache__/
 
 # practice files
 tests/Bipartisan_News_Classifier.ipynb
+tests/BiasDetection_Classifier.ipynb
