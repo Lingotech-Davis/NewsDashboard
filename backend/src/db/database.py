@@ -7,7 +7,9 @@ from src.config.config import get_settings
 settings = get_settings()
 
 # NOTE: Switch 'db' to your localhost if running locally
-SQLALCHEMY_DATABASE_URL = f"postgresql://{settings.DB_USER}:{settings.DB_PASSWORD}@{settings.DB_HOST}:5432/{settings.DB_NAME}"
+SQLALCHEMY_DATABASE_URL = (
+    f"postgresql://{settings.DB_USER}:{settings.DB_PASSWORD}@db:5432/{settings.DB_NAME}"
+)
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 Base = declarative_base()

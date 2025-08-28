@@ -37,7 +37,7 @@ def test_env_load():
 
 
 def test_top_stories():
-    response = client.get("/api/news/top-stories")
+    response = client.get("/api/v1/news/top-stories")
     assert response.status_code == 200
     data = response.json()
     assert {"status", "totalResults", "articles"} == set(data.keys())
@@ -46,7 +46,7 @@ def test_top_stories():
 
 def test_extract_news_malformed_url():
     test_url = "this-is-not-a-real-url"
-    response = client.get(f"/api/news/news-extract?story_url={test_url}")
+    response = client.get(f"/api/v1/news/news-extract?story_url={test_url}")
 
     print(response.json())
     assert response.status_code == 422
@@ -63,7 +63,7 @@ def test_extraction():
     test_title = data["test_title"]
     test_text = data["test_text"]
 
-    response = client.get(f"/api/news/news-extract?story_url={test_url}")
+    response = client.get(f"/api/v1/news/news-extract?story_url={test_url}")
 
     assert response.status_code == 200
     data = response.json()
@@ -71,3 +71,10 @@ def test_extraction():
     assert "text" in data
     assert data["title"] == test_title
     assert data["text"] == test_text
+
+
+def test_read_db():
+    response = client.get("/api/v1/db/read-db")
+    assert response.status_code == 200
+    data = response.json()
+    assert type(data) is list

@@ -53,6 +53,7 @@ Different docker files:
 - Dockerfile: Used to orchestrate the building of individual containers
 - .dockerignore: Same as .gitignore, allows the exclusion of files from docker containers (like node_modules). Can be useful to reduce build times
 - docker-compose.yml: Like a dockerfile for docker compose. Orchestrates the interaction and deployment of multiple docker files.
+- docker-compose.test.yml: An additional dockerfile that tells the API container to run my test code using pytest. See example command to combine below in testing.
 
 Here's some [other small notes](https://dtyner-vault.vercel.app/Coding/Docker) I wrote.
 Here's a minimal example of another [similar project](https://github.com/Paul-Williamson-90/postgres_fastapi_template/tree/master)
@@ -62,13 +63,29 @@ Here's a minimal example of another [similar project](https://github.com/Paul-Wi
 ### Testing
 
 I'm slowly writing some test cases to make sure it actually... works.
-To run (assuming curdir=backend/) : `pytest src/test_main.py`
 
-- You will need to have installed the packages necessary to run this
+~~To run (assuming curdir=backend/) : `pytest src/test_main.py`~~
+
+~~- You will need to have installed the packages necessary to run this~~
 
 Additionally, when running and rerunning code, you can shortcut things by using my restart.sh file.
 
 - To execute this (which tears down containers, then restarts them), give it exec perms `chmod +x ./restart.sh` then run it
+
+#### Testing v2
+
+Since communication between containers is a pain, now I'm transitioning into running it via docker and not directly pytest.
+
+Now, run using my `./test_docker.sh` file (you will need to `chmod +x ./test_docker.sh` to make to make it executable).
+
+> This will run the `./docker-compose.test.yml` file on top of the normal compose file, which tells the containers to run the `pytest src/test_main.py` itself, with its simplified connection logic.
+
+Compose Commands:
+
+```
+# docker-compose -f docker-compose.yml -f docker-compose.test.yml down -v    # This command is optional, will destroy container volumes
+docker-compose -f docker-compose.yml -f docker-compose.test.yml up --build   # This command actually runs test suite
+```
 
 ### Routes
 
@@ -78,6 +95,9 @@ Additionally, when running and rerunning code, you can shortcut things by using 
 ├── /env-check - Test route that env vars are configured
 └── /api
     └── /v1
-        ├── /news-extract - Extracts news from a news url. ?story_url=str
-        └── /top-stories - Gets recent top news items. ?query=str
+        ├── /news
+          ├── /news-extract - Extracts news from a news url. ?story_url=str
+          └── /top-stories - Gets recent top news items. ?query=str
+        └── /db
+          └── /read-db - Returns all embedding chunks stored
 ```

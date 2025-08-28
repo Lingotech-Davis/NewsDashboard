@@ -22,8 +22,8 @@ models.Base.metadata.create_all(bind=engine)
 
 
 app = FastAPI()
-app.include_router(news_router, prefix="/api/news")
-app.include_router(db_router, prefix="/api/db")
+app.include_router(news_router, prefix="/api/v1/news")
+app.include_router(db_router, prefix="/api/v1/db")
 
 
 @app.get("/ping/")
