@@ -28,6 +28,14 @@ DB_PASSWORD=
 DB_NAME=
 ```
 
+Also, make sure to load the full version of the data files, and not just the LFS pointers:
+
+```
+sudo apt-get install git-lfs
+git lfs install
+git lfs pull
+```
+
 When you want to run the project locally, first set up docker on your machine
 
 - I had some issues with this :(
@@ -100,4 +108,6 @@ docker-compose -f docker-compose.yml -f docker-compose.test.yml up --build   # T
           └── /top-stories - Gets recent top news items. ?query=str
         └── /db
           └── /read-db - Returns all embedding chunks stored
+        └── /bias
+          └── /analyze - Reads a JSON post to it, and performs bias analysis on news story URL { "url": "{input_url}" }
 ```
