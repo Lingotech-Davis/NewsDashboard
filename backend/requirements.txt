@@ -13,3 +13,14 @@ newspaper3k
 # The below are needed for testing
 httpx
 pytest # THIS IS NEEDED FOR THE TESTING, I EXPLAIN IN DOCS
+
+# The below are added for bias detection
+thefuzz[speedup]
+transformers
+datasets
+torch
+nltk
+pandas
+numpy
+scipy
+scikit-learn

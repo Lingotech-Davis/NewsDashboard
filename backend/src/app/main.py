@@ -8,6 +8,7 @@ from src.db import models
 from src.db.database import engine
 from src.router.db import db_router
 from src.router.news import news_router
+from src.router.bias import bias_router
 
 # Setting Atttributes
 # Attributes:
@@ -24,6 +25,7 @@ models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 app.include_router(news_router, prefix="/api/v1/news")
 app.include_router(db_router, prefix="/api/v1/db")
+app.include_router(bias_router, prefix="/api/v1/bias")
 
 
 @app.get("/ping/")

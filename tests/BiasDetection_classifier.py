@@ -4,9 +4,9 @@
 import BiasDetection_utilities
 from colorama import Fore, Back, Style, init
 init()
-probs_path = "models/sourcebias_probabilities.csv"
-bias_model_path = "models/DistilBert_PoliticalBias_FineTuned/"
-claim_model_path = "models/claimdetection_oneClassSVM.pkl"
+probs_path = "../backend/src/models/sourcebias_probabilities.csv"
+bias_model_path = "../backend/src/models/DistilBert_PoliticalBias_FineTuned/"
+claim_model_path = "../backend/src/models/claimdetection_oneClassSVM.pkl"
 
 # Some parameters to keep tuning by hand!
 weights = {
