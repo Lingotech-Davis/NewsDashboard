@@ -1,8 +1,8 @@
-import re
 from datetime import datetime
 from typing import List, Optional
+from uuid import UUID
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, ConfigDict
 
 
 # Type declaration for newsAPI
@@ -17,7 +17,7 @@ class Source(BaseModel):
     name: str = Field(..., description="The name of the news source.")
 
 
-class Article(BaseModel):
+class ArticleResponse(BaseModel):
     """
     Represents a single news article.
     """
@@ -46,7 +46,7 @@ class NewsApiResponse(BaseModel):
 
     status: str = Field(..., description="The status of the request (e.g., 'ok').")
     totalResults: int = Field(..., description="The total number of results found.")
-    articles: List[Article] = Field(..., description="A list of news articles.")
+    articles: List[ArticleResponse] = Field(..., description="A list of news articles.")
 
 
 class ArticleContentResponse(BaseModel):
@@ -54,3 +54,49 @@ class ArticleContentResponse(BaseModel):
 
     title: str = Field(..., description="The title of the article.")
     text: str = Field(..., description="The cleaned, extracted text of the article.")
+
+
+class ChunkRead(BaseModel):
+    """
+    Pydantic model for reading Chunk data.
+    This schema reflects the current structure of the Chunk SQLAlchemy model.
+    """
+
+    chunk_id: UUID
+    content: str
+    embedding: List[float]
+    created_at: datetime
+    article_id: UUID
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class ArticleBase(BaseModel):
+    """
+    Pydantic base model for Article data.
+    """
+
+    url: str
+    urlToImage: Optional[str] = None
+    source: Optional[str] = None
+    author: Optional[str] = None
+    title: str
+    description: Optional[str] = None
+    publishedAt: datetime
+    scrape_successful: str
+    text: str
+
+
+class ArticleCreate(ArticleBase):
+    pass
+
+
+class Article(ArticleBase):
+    """
+    Pydantic model for a complete Article with its chunks.
+    """
+
+    article_id: UUID
+    chunks: List[ChunkRead] = []
+
+    model_config = ConfigDict(from_attributes=True)
