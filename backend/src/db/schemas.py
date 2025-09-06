@@ -100,3 +100,13 @@ class Article(ArticleBase):
     chunks: List[ChunkRead] = []
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class ArticleReadNoEmbeddings(ArticleBase):
+    """
+    Pydantic model for an article without linking its chunks
+    """
+
+    article_id: UUID
+
+    model_config = ConfigDict(from_attributes=True)

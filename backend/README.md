@@ -107,7 +107,10 @@ docker-compose -f docker-compose.yml -f docker-compose.test.yml up --build   # T
           ├── /news-extract - Extracts news from a news url. ?story_url=str
           └── /top-stories - Gets recent top news items. ?query=str
         └── /db
-          └── /read-db - Returns all embedding chunks stored
+          ├── /read-db-chunks - Returns all embedding chunks stored
+          ├── /read-db-articles - Returns all articles stored
         └── /bias
           └── /analyze - Reads a JSON post to it, and performs bias analysis on news story URL { "url": "{input_url}" }
+        └── /rag
+          └── /store-query - Pipeline that takes input query, finds relevant stories, scrapes, transforms into embeddings, and stores in postgres DB
 ```
