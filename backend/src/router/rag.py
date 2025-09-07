@@ -4,6 +4,9 @@ from typing import Annotated
 import asyncio
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from sqlalchemy import select
+from pgvector.sqlalchemy import Vector
+from sentence_transformers import SentenceTransformer
 import httpx
 
 
@@ -62,6 +65,7 @@ async def scrape_and_embed_article(article_data: dict, model):
 
 @rag_router.post("/store-query/")
 async def store_query(
+    embedding_model: Annotated[SentenceTransformer, Depends(get_embeddings_model)],
     settings: Annotated[Settings, Depends(get_settings)],
     db: Annotated[Session, Depends(get_db)],
     query: str = "stock",
@@ -116,11 +120,12 @@ async def store_query(
                 to_embed[prop] = article.get(prop)
         articles_to_embed.append(to_embed)
 
-    MiniLM = get_embeddings_model()
-
     # Use asyncio.gather to process all articles concurrently
     processed_articles = await asyncio.gather(
-        *[scrape_and_embed_article(article, MiniLM) for article in articles_to_embed]
+        *[
+            scrape_and_embed_article(article, embedding_model)
+            for article in articles_to_embed
+        ]
     )
 
     # Call the storage function just once with the list of processed articles.
@@ -129,3 +134,32 @@ async def store_query(
     return {
         "message": f"Successfully processed and stored {len(processed_articles)} articles."
     }
+
+
+@rag_router.get(
+    "/retrieve-relevant-chunks/", response_model=list[schemas.ChunkReadNoEmbedding]
+)
+async def retrieve_relevant_chunks(
+    embedding_model: Annotated[SentenceTransformer, Depends(get_embeddings_model)],
+    db: Annotated[Session, Depends(get_db)],
+    query: str = "stock",
+):
+    if not query or len(query.strip()) == 0:
+        return []
+
+    # Generate a single embedding vector for the query.
+    # The output is a numpy array.
+    logger.info(f"Embedding query: {query}")
+    query_vector = embedding_model.encode(query, convert_to_tensor=False).tolist()
+
+    # The query is now a list of floats, which is the expected format for pgvector.
+    # Correctly use the l2_distance method with a single vector.
+    results = db.scalars(
+        select(models.Chunk)
+        .order_by(models.Chunk.embedding.l2_distance(query_vector))
+        .limit(5)
+    ).all()  # Use .all() to get a list of objects
+
+    # The .all() method materializes the results into a list of model instances,
+    # which FastAPI can then serialize to JSON using the defined response_model.
+    return results
