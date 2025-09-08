@@ -162,7 +162,7 @@ def NBScore(priors, source_probs, article_probs, sentence_probs, weights=None):
     scores = {}
     for label in priors:
         log_prior = weights["prior"] * math.log(priors[label] + 1)
-        log_source = weights["source"] * math.log(source_probs.get(label, 0) + 1)
+        log_source = weights["source"] * math.log(source_probs.get("P("+label+"|source)", 0) + 1)
         log_article = weights["article"] * math.log(article_probs.get(label, 0) + 1)
         log_sentences = sum([
             weights["sentence"] * math.log(sent.get(label, 0) + 1)

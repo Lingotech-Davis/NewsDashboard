@@ -27,9 +27,15 @@ export default function BiasPage() {
           url: link,
           priors: { left: 0.25, center: 0.5, right: 0.25 },
           thresholds: { claims: 0.5, left: 0.9, center: 0.5, right: 0.5 },
-          weights: { prior: 3.0, source: 2.0, sentence: 0.025, article: 6.0 }
+          weights: { prior: 3.0, source: 1.60, sentence: 0.025, article: 5.0 }
         }),
       });
+      // Recommended approach for tuning:
+      // 1) Open up 3 articles from all politically leaning sources (left, center, right)
+      // 2) Read the article and determine for yourself if it's biased
+      // 3) Feed the article into the model, determine if it's correct
+      // 4) Determine what kind of error is happening (wrong model prediction, too heavy weighting, etc...)
+      // 5) Adjust the weights accordingly
 
       // If fetch succeeds but backend returns error status
       if (!res.ok) {
