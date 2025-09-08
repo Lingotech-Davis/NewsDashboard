@@ -25,8 +25,8 @@ export default function BiasPage() {
         },
         body: JSON.stringify({
           url: link,
-          priors: { left: 0.25, center: 0.5, right: 0.25 },
-          thresholds: { claims: 0.5, left: 0.9, center: 0.5, right: 0.5 },
+          priors: { left: 0.15, center: 0.7, right: 0.15 },
+          thresholds: { claims: 0.95, left: 0.9, center: 0.5, right: 0.5 },
           weights: { prior: 3.0, source: 1.60, sentence: 0.025, article: 5.0 }
         }),
       });

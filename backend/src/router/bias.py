@@ -84,16 +84,27 @@ def analyze_article(input: ArticleURL):
         article_data["text"], claim_threshold=thresholds["claims"]
     )
     sentence_probs = []
-    for sent in sentence_outputs:
+    sentence_predictions = []
+    num_political = 0
+    for i, sent in enumerate(sentence_outputs):
+        probs = priors
+        label = "not claim"
         if sent['label'] == "claim":
-            probs = bias_detector.text_predict(sent["text"])["probability"]
-            sentence_probs.append({
-                "left": probs[0],
-                "center": probs[1],
-                "right": probs[2],
-            })
-        else:
-            sentence_probs.append(priors)
+            pred = bias_detector.text_predict(sent["text"])
+            probs = {
+                "left": float(pred["probability"][0]),
+                "center": float(pred["probability"][1]),
+                "right": float(pred["probability"][2]),
+            }
+            label = pred['label']
+            num_political += 1
+        sentence_probs.append(probs)
+        sentence_predictions.append({"index": i,
+                                     "text": sent['text'],
+                                     "probs": probs,
+                                     "label": label,
+                                     "is_claim": sent['label'] == "claim"})
+    per_political = num_political/len(sentence_outputs)
 
     # Step 5: Combine scores
     final_probs, predicted_label = NBScore(
@@ -115,11 +126,14 @@ def analyze_article(input: ArticleURL):
         "article_summary": {
             "authors": article_data["authors"],
             "publish_date": article_data["publish_date"],
-            "text": "\n" + article_data["text"].replace("\n", " ").strip(),
+            "text": article_data["text"].replace("\n", " ").strip(),
         },
+        "sentence_predictions": sentence_predictions,
         "extra": {
             "match": match,
             "article_probs": article_probs,
             "source_probs": source_probs_dict,
+            "per_political": per_political,
+            "url": input.url,
         },
     }
