@@ -31,7 +31,7 @@ import math
 from datasets.utils.logging import disable_progress_bar, set_verbosity_error
 disable_progress_bar()
 set_verbosity_error()
-
+id2label = {0: "left", 1: "center", 2: "right"}
 
 # -------------------- Class definitions ------------------------------------------------------------------------------------------------------------------------- #
 class SourceChecker():
@@ -110,7 +110,6 @@ class BiasDetector():
     logits = outputs.logits
     probs = F.softmax(logits, dim=-1).numpy().flatten()
     predicted_class_id = np.argmax(probs, axis=0)
-    id2label = {0: "left", 1: "center", 2: "right"}
     predicted_label = id2label[predicted_class_id] if probs[predicted_class_id] >= thresholds[id2label[predicted_class_id]] else "center"
     return {"text": text,
             "probability": probs,

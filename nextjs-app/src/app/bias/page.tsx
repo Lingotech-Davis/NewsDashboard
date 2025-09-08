@@ -26,11 +26,22 @@ export default function BiasPage() {
         body: JSON.stringify({ url: link }),
       });
 
-      if (!res.ok) throw new Error(`Server responded with ${res.status}`);
+      // If fetch succeeds but backend returns error status
+      if (!res.ok) {
+        const errorText = await res.text(); // optional: parse error message
+        throw new Error(`Backend error: ${res.status} ${errorText}`);
+      }
+
       const json = await res.json();
       setResult(json);
     } catch (err: any) {
-      setError('Failed to analyze article. Please try again.');
+      if (err.name === 'TypeError' && err.message.includes('Failed to fetch')) {
+        setError('Unable to connect to backend. Is the server running?');
+      } else if (err.message.startsWith('Backend error')) {
+        setError('Server responded with an error. Please check the article link or try a different URL.');
+      } else {
+        setError('Unexpected error occurred. Please try again or check server connection.');
+      }
       console.error(err);
     } finally {
       setLoading(false);
