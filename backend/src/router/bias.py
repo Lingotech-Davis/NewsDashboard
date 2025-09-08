@@ -14,13 +14,8 @@ from pathlib import Path
 # Initialize router
 bias_router = APIRouter()
 
-# source_checker = SourceChecker("src/models/sourcebias_probabilities.csv")
-# sentence_detector = SentenceClaimDetector("src/models/claimdetection_oneClassSVM.pkl")
-# bias_detector = BiasDetector("src/models/DistilBert_PoliticalBias_FineTuned/")
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-
 # Load models and data (assuming you are in the backend directory) ADJUST IF NEEDED!
+BASE_DIR = Path(__file__).resolve().parent.parent
 source_checker = SourceChecker(str(BASE_DIR / "models/sourcebias_probabilities.csv"))
 sentence_detector = SentenceClaimDetector(
     str(BASE_DIR / "models/claimdetection_oneClassSVM.pkl")
@@ -51,9 +46,9 @@ def analyze_article(input: ArticleURL):
         "right": 0.5
     }
     weights = { # For final output, how important is each component? (i.e. we want to consider prior and article the most, but sentence probabilities might be unreliable)
-        "prior": 3.0,
+        "prior": 2.5,
         "source": 3.0,
-        "article": 5.0,
+        "article": 2.0,
         "sentence": 0.10
     }
 

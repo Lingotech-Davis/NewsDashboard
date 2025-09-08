@@ -14,7 +14,7 @@ type BiasResultProps = {
     article_summary: {
       authors: string[];
       publish_date: string;
-      text_snippet: string;
+      text: string;
     };
   };
 };
@@ -35,9 +35,9 @@ export default function BiasResult({ result }: BiasResultProps) {
         {Object.entries(bias_distribution).map(([label, value]) => {
           const percent = (value * 100).toFixed(2);
           const color =
-            label === 'left' ? 'bg-red-500' :
+            label === 'left' ? 'bg-blue-500' :
             label === 'center' ? 'bg-gray-500' :
-            label === 'right' ? 'bg-blue-500' : 'bg-gray-300';
+            label === 'right' ? 'bg-red-500' : 'bg-gray-300';
 
           return (
             <div key={label}>
