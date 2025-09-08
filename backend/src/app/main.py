@@ -2,6 +2,7 @@
 from typing import Annotated
 
 from fastapi import Depends, FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from src.config.config import Settings, get_settings
 from src.db import models
@@ -24,6 +25,18 @@ models.Base.metadata.create_all(bind=engine)
 
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:3000",  # Front end
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(news_router, prefix="/api/v1/news")
 app.include_router(db_router, prefix="/api/v1/db")
 app.include_router(bias_router, prefix="/api/v1/bias")
