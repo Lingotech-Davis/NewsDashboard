@@ -23,7 +23,12 @@ export default function BiasPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ url: link }),
+        body: JSON.stringify({
+          url: link,
+          priors: { left: 0.25, center: 0.5, right: 0.25 },
+          thresholds: { claims: 0.5, left: 0.9, center: 0.5, right: 0.5 },
+          weights: { prior: 3.0, source: 2.0, sentence: 0.025, article: 6.0 }
+        }),
       });
 
       // If fetch succeeds but backend returns error status
