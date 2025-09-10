@@ -112,5 +112,8 @@ docker-compose -f docker-compose.yml -f docker-compose.test.yml up --build   # T
         └── /bias
           └── /analyze - Reads a JSON post to it, and performs bias analysis on news story URL { "url": "{input_url}" }
         └── /rag
-          └── /store-query - Pipeline that takes input query, finds relevant stories, scrapes, transforms into embeddings, and stores in postgres DB
+          ├── /retrieve-relevant-chunks-l2 - Takes an input query, and finds most similar article chunks by l2 distance ?query=str
+          ├── /retrieve-relevant-chunks-cosine - Takes an input query, and finds most similar article chunks by cosine distance ?query=str
+          └── /store-query - Pipeline that takes input query, finds relevant stories, scrapes, transforms into embeddings, and stores in postgres DB ?query=str
+
 ```

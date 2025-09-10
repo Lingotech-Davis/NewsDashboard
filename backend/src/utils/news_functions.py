@@ -40,7 +40,7 @@ async def query_news_api(
     keyword: str,
     NEWS_API_KEY: str,
     everything: bool = True,
-    sortBy: str = None,
+    sortBy: str | None = None,
 ):
     """
     Asynchronously queries the News API using httpx.
@@ -48,7 +48,7 @@ async def query_news_api(
     endpoint = "everything" if everything else "top-headlines"
     assert sortBy in ["relevancy", "popularity", "publishedAt", None]
     sortString = f"&sortBy={sortBy}" if (sortBy and endpoint == "everything") else ""
-    pageSizeDefault = 20
+    pageSizeDefault = 100
 
     url = (
         f"https://newsapi.org/v2/{endpoint}"
