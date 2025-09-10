@@ -11,6 +11,7 @@ from src.utils.bias_detection import (
 
 from pathlib import Path
 from typing import Optional, Dict
+import json
 
 # Initialize router
 bias_router = APIRouter()
@@ -117,7 +118,7 @@ def analyze_article(input: ArticleURL):
     final_probs = {k: float(v) for k, v in final_probs.items()}
 
     # Step 6: Return response
-    return {
+    response = {
         "title": article_data["title"],
         "source": source_name,
         "source_bias": source_bias,
@@ -137,3 +138,5 @@ def analyze_article(input: ArticleURL):
             "url": input.url,
         },
     }
+    print("Debug:\n", json.dumps(response, indent=2, default=str))
+    return response

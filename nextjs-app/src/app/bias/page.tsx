@@ -27,7 +27,7 @@ export default function BiasPage() {
           url: link,
           priors: { left: 0.15, center: 0.7, right: 0.15 },
           thresholds: { claims: 0.95, left: 0.9, center: 0.5, right: 0.5 },
-          weights: { prior: 3.0, source: 1.60, sentence: 0.025, article: 5.0 }
+          weights: { prior: 3.0, source: 0.90, sentence: 0.025, article: 6 }
         }),
       });
       // Recommended approach for tuning:
