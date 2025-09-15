@@ -21,6 +21,11 @@ export default function Navbar() {
             <span className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">Snippet Finder</span>
           </Link>
         </li>
+        <li>
+          <Link href="/summary">
+            <span className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">Article Summarizer</span>
+          </Link>
+        </li>
       </ul>
     </nav>
   );
