@@ -25,3 +25,9 @@ pandas
 numpy
 scipy
 scikit-learn
+
+# The below are added for news summarization
+spacy
+numpy
+networkx
+google-genai

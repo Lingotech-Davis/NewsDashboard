@@ -11,6 +11,7 @@ from src.router.db import db_router
 from src.router.news import news_router
 from src.router.bias import bias_router
 from src.router.rag import rag_router
+from src.router.summarize import summarize_router
 
 # Setting Atttributes
 # Attributes:
@@ -41,6 +42,7 @@ app.include_router(news_router, prefix="/api/v1/news")
 app.include_router(db_router, prefix="/api/v1/db")
 app.include_router(bias_router, prefix="/api/v1/bias")
 app.include_router(rag_router, prefix="/api/v1/rag")
+app.include_router(summarize_router, prefix="/api/v1/summarize")
 
 
 @app.get("/ping/")
