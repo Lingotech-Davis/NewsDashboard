@@ -3,6 +3,7 @@
 
 import type { NewsSnippetProps } from "@/types/newsSnippetProps";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function NewsSnippet({ article, article_id, created_at, chunk_id, content, index }: NewsSnippetProps) {
 
@@ -47,9 +48,15 @@ export default function NewsSnippet({ article, article_id, created_at, chunk_id,
             {content}
           </p>
         </div>
-        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-          Source: {article.source}
-        </p>
+        <div className="flex justify-between items-center text-xs text-gray-500 dark:text-gray-400 mt-2">
+          <span>Source: {article.source}</span>
+          <Link
+            href={`/bias?url=${encodeURIComponent(article.url)}`}
+            className="text-blue-500 hover:text-blue-700 font-medium"
+          >
+            Analyze Bias
+          </Link>
+        </div>
       </div>
     </li>
   );

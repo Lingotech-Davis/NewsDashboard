@@ -1,5 +1,6 @@
 import type { NewsCardProps } from "@/types/newsCardProps";
 import Image from "next/image";
+import Link from 'next/link';
 
 export default function NewsCard({ article, index }: NewsCardProps) {
 	return (
@@ -43,9 +44,15 @@ export default function NewsCard({ article, index }: NewsCardProps) {
 						{article.description}
 					</p>
 				</div>
-				<p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-					Source: {article.source.name}
-				</p>
+				<div className="flex justify-between items-center text-xs text-gray-500 dark:text-gray-400 mt-2">
+					<span>Source: {article.source.name}</span>
+					<Link
+						href={`/bias?url=${encodeURIComponent(article.url)}`}
+						className="text-blue-500 hover:text-blue-700 font-medium"
+					>
+						Analyze Bias
+					</Link>
+				</div>
 			</div>
 		</li>
 	);

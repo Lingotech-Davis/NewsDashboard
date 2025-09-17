@@ -46,22 +46,24 @@ export default function NewsPage() {
 
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4 text-gray-900 dark:text-gray-100">Snippet Finder</h1>
-      <p className="mb-6 text-gray-700 dark:text-gray-300">
-        Please enter a query below, and we'll find similar relevant entries in our news database.
-      </p>
-
-      <div className="flex flex-col space-y-4">
-        <input
-          type="url"
-          placeholder="How is the S&amp;P reacting to Elon Musk antics"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
-          required
-        />
+    <div className=" max-w-4xl mx-auto">
+      <div className="max-w-2xl mx-auto p-6">
+        <h1 className="text-3xl font-bold mb-4 text-gray-900 dark:text-gray-100">Snippet Finder</h1>
+        <p className="mb-6 text-gray-700 dark:text-gray-300">
+          Please enter a query below, and we'll find similar relevant entries in our news database.
+        </p>
+        <div className="flex flex-col space-y-4">
+          <input
+            type="url"
+            placeholder="How is the S&amp;P reacting to Elon Musk antics"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
+            required
+          />
+        </div>
       </div>
+
 
       {error && <p className="mt-6 text-red-600">{error}</p>}
 

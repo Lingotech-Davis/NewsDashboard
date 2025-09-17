@@ -1,17 +1,27 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import BiasResult from '@/components/biasPage';
 
 export default function BiasPage() {
+  const searchParams = useSearchParams();
+  const initialUrl = searchParams.get('url');
+
   const [link, setLink] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!link.trim()) return;
+  useEffect(() => {
+    if (initialUrl) {
+      startAnalysis(initialUrl);
+      setLink(initialUrl)
+    }
+  }, [initialUrl]);
+
+  const startAnalysis = async (targetUrl: string) => {
+    if (!targetUrl.trim()) return;
 
     setLoading(true);
     setError(null);
@@ -20,16 +30,15 @@ export default function BiasPage() {
     try {
       const res = await fetch('http://localhost:8000/api/v1/bias/analyze', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          url: link,
+          url: targetUrl,
           priors: { left: 0.15, center: 0.7, right: 0.15 },
           thresholds: { claims: 0.95, left: 0.9, center: 0.5, right: 0.5 },
           weights: { prior: 3.0, source: 0.90, sentence: 0.025, article: 6 }
         }),
       });
+
       // Recommended approach for tuning:
       // 1) Open up 3 articles from all politically leaning sources (left, center, right)
       // 2) Read the article and determine for yourself if it's biased
@@ -39,7 +48,7 @@ export default function BiasPage() {
 
       // If fetch succeeds but backend returns error status
       if (!res.ok) {
-        const errorText = await res.text(); // optional: parse error message
+        const errorText = await res.text();
         throw new Error(`Backend error: ${res.status} ${errorText}`);
       }
 
@@ -57,6 +66,11 @@ export default function BiasPage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    startAnalysis(link);
   };
 
   return (
@@ -78,9 +92,8 @@ export default function BiasPage() {
         <button
           type="submit"
           disabled={loading}
-          className={`px-4 py-2 rounded text-white transition ${
-            loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
-          }`}
+          className={`px-4 py-2 rounded text-white transition ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
+            }`}
         >
           {loading ? 'Analyzing...' : 'Analyze'}
         </button>
