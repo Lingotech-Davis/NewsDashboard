@@ -13,6 +13,7 @@ import httpx
 from src.config.config import Settings, get_settings
 from src.db import models, schemas
 from src.db.database import get_db
+from src.utils import gemini
 from src.utils.news_functions import query_news_api, extract_newspaper_contents
 from src.utils.database import filter_out_existing_articles, store_articles
 from src.utils.local_models import (
@@ -22,6 +23,7 @@ from src.utils.local_models import (
     add_embeddings,
     chunkify,
 )
+from src.utils.gemini import read_with_gemini
 
 rag_router = APIRouter()
 
@@ -198,3 +200,107 @@ async def retrieve_relevant_chunks_cosine(
     # The .all() method materializes the results into a list of model instances,
     # which FastAPI can then serialize to JSON using the defined response_model.
     return results
+
+
+@rag_router.post(
+    "/rag-response-full-articles/",
+    # response_model=list[schemas.ChunkReadWithArticleInfo],
+)
+async def rag_response_full_articles(
+    embedding_model: Annotated[SentenceTransformer, Depends(get_embeddings_model)],
+    settings: Annotated[Settings, Depends(get_settings)],
+    db: Annotated[Session, Depends(get_db)],
+    query: str,
+):
+    if not query or len(query.strip()) == 0:
+        return []
+
+    # Generate a single embedding vector for the query.
+    # The output is a numpy array.
+    logger.info(f"Embedding query: {query}")
+    query_vector = embedding_model.encode(query, convert_to_tensor=False).tolist()
+
+    # The query is now a list of floats, which is the expected format for pgvector.
+    # Correctly use the l2_distance method with a single vector.
+    relevant_chunks = db.scalars(
+        select(models.Chunk)
+        .options(joinedload(models.Chunk.article))
+        .order_by(models.Chunk.embedding.cosine_distance(query_vector))
+        .limit(5)
+    ).all()
+    unique_article_ids = {chunk.article.article_id for chunk in relevant_chunks}
+    full_articles = db.scalars(
+        select(models.Article).where(models.Article.article_id.in_(unique_article_ids))
+    ).all()
+
+    gemini_context_list = []
+    for article in full_articles:
+        combined_context = f"Article Title: {article.title}\n"
+        combined_context += f"Article Text: {article.text}\n\n"
+        gemini_context_list.append(combined_context)
+
+    # settings.GEMINI_API_KEY: str
+    gemini_response = read_with_gemini(gemini_context_list, settings.GEMINI_API_KEY)
+
+    output_dict = {
+        "articles": [article for article in full_articles],
+        "gemini_response": gemini_response,
+    }
+
+    return output_dict
+
+
+@rag_router.post(
+    "/rag-response-article-chunks/",
+    # response_model=list[schemas.ChunkReadWithArticleInfo],
+)
+async def rag_response_article_chunks(
+    embedding_model: Annotated[SentenceTransformer, Depends(get_embeddings_model)],
+    settings: Annotated[Settings, Depends(get_settings)],
+    db: Annotated[Session, Depends(get_db)],
+    query: str = "stock",
+):
+    if not query or len(query.strip()) == 0:
+        return []
+
+    # Generate a single embedding vector for the query.
+    # The output is a numpy array.
+    logger.info(f"Embedding query: {query}")
+    query_vector = embedding_model.encode(query, convert_to_tensor=False).tolist()
+
+    # The query is now a list of floats, which is the expected format for pgvector.
+    # Correctly use the l2_distance method with a single vector.
+    relevant_chunks = db.scalars(
+        select(models.Chunk)
+        .options(joinedload(models.Chunk.article))
+        .order_by(models.Chunk.embedding.cosine_distance(query_vector))
+        .limit(5)
+    ).all()
+
+    gemini_context_list = []
+    for article in relevant_chunks:
+        combined_context = f"Article Title: {article.article.title}\n"
+        combined_context += f"Article Text: {article.content}\n\n"
+        gemini_context_list.append(combined_context)
+
+    # settings.GEMINI_API_KEY: str
+    try:
+        gemini_response = read_with_gemini(gemini_context_list, settings.GEMINI_API_KEY)
+        if not gemini_response:
+            raise Exception("no response")
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"An unexpected error occurred: {e}",
+        )
+
+    # Convert the SQLAlchemy objects to Pydantic models for the response
+    article_pydantic_list = [
+        schemas.ArticleRagRead.model_validate(chunk.article)
+        for chunk in relevant_chunks
+    ]
+
+    # Return the final structured response using the Pydantic schema
+    return schemas.RagResponse(
+        gemini_response=gemini_response, articles=article_pydantic_list
+    )

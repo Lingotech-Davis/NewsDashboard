@@ -149,3 +149,8 @@ class ChunkReadWithArticleInfo(ChunkReadNoEmbedding):
     article: ArticleRagRead
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class RagResponse(BaseModel):
+    articles: List[ArticleRagRead]
+    gemini_response: str

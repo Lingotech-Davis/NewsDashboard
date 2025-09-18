@@ -17,8 +17,13 @@ export default function Navbar() {
           </Link>
         </li>
         <li>
-          <Link href="/rag">
+          <Link href="/snippet">
             <span className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">Snippet Finder</span>
+          </Link>
+        </li>
+        <li>
+          <Link href="/rag">
+            <span className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">RAG</span>
           </Link>
         </li>
         <li>
